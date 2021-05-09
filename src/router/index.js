@@ -1,23 +1,61 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
+  /**
+   * 首页
+   */
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "login"
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login/index.vue")
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: () => import("../views/home.vue"),
+    children: [
+      {
+        path: "/admins",
+        name: "Admin",
+        component: () => import("../views/admin/index.vue")
+      },
+      {
+        path: "/users",
+        name: "User",
+        component: () => import("../views/user/index.vue")
+      },
+      {
+        path: "/goods",
+        name: "Good",
+        component: () => import("../views/goods/list.vue")
+      },
+      {
+        path: "/wanteds",
+        name: "Good",
+        component: () => import("../views/goods/wantedList.vue")
+      },
+      {
+        path: "/categories",
+        name: "Category",
+        component: () => import("../views/goods/cate.vue")
+      },
+      {
+        path: "/recommend",
+        name: "Recommend",
+        component: () => import("../views/goods/recommend.vue")
+      },
+      {
+        path: "/orders",
+        name: "Order",
+        component: () => import("../views/order/index.vue")
+      }
+    ]
   }
 ];
 
